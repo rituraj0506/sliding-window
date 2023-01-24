@@ -1,0 +1,35 @@
+ int countDistinctSubarray(int arr[], int n)
+    {
+        set<int>s;
+        int maxi=0;
+        int c=0;
+        for(int i=0;i<n;i++)
+        {
+            s.insert(arr[i]);
+        }
+        int k=s.size();
+        unordered_map<int,int>m;
+        int i=0,j=0;
+        while(j<n)
+        {
+            m[arr[j]]++;
+          if(m.size()<k)
+          {
+              j++;
+          }
+          if(m.size()==k)
+          {
+                while(m.size()==k)
+              {
+                    c+=(n-j);  // imp line
+                  m[arr[i]]--;
+                  if(m[arr[i]]==0)
+                  m.erase(arr[i]);
+                  i++;
+              }
+              
+              j++;
+          }
+        }
+    return c;
+    }
