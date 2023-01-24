@@ -1,0 +1,28 @@
+ int smallestSubstring(string s) {
+        // Code here
+        int n=s.size();
+        int i=0,j=0;
+        int mini=INT_MAX;
+        unordered_map<char,int>m;
+        while(j<n)
+        {
+           m[s[j]]++;
+           if(m.size()<3)
+           j++;
+           else if(m.size()==3)
+           {
+ // agar max nikal na hota to 3 se bara hota ans uss case m check else if(m.size()>3)  
+               // but min case 3 se bara to nhi hoga oisliye yahi check karo
+            while(m.size()==3)
+               {
+                   mini=min(mini,j-i+1);
+                   m[s[i]]--;
+                   if(m[s[i]]==0)
+                   m.erase(s[i]);
+                   i++;
+               }
+               j++;
+           }
+        }
+        return mini==INT_MAX?-1:mini;
+    }
