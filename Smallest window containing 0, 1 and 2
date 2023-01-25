@@ -26,3 +26,41 @@
         }
         return mini==INT_MAX?-1:mini;
     }
+    
+    
+Smallest distinct window
+
+ int findSubString(string str)
+    {
+       set<int>s;
+       int n=str.size();
+       int mini=INT_MAX;
+       unordered_map<int,int>m;
+       for(int i=0;i<n;i++)
+       {
+         s.insert(str[i]); 
+       }
+       int k=s.size();
+       int i=0,j=0;
+       while(j<n)
+       {
+          m[str[j]]++;
+          if(m.size()<k)
+          {
+              j++;
+          }
+          if(m.size()==k)
+          {
+              while(m.size()==k)
+              {
+                  mini=min(mini,j-i+1);
+                  m[str[i]]--;
+                  if(m[str[i]]==0)
+                  m.erase(str[i]);
+                  i++;
+              }
+              j++;
+          }
+       }
+       return mini;
+    }
