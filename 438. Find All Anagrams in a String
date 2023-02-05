@@ -1,0 +1,47 @@
+Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+Example 1:
+Input: s = "cbaebabacd", p = "abc"
+Output: [0,6]
+Explanation:
+The substring with start index = 0 is "cba", which is an anagram of "abc".
+The substring with start index = 6 is "bac", which is an anagram of "abc".
+
+ vector<int> findAnagrams(string s, string p) {
+     vector<int>res;
+        unordered_map<char,int>m;
+        for(auto i:p)
+        {
+             m[i]++;
+        }
+        int i=0,j=0;
+         //int n=s.size();
+         int count=m.size();
+         int k=p.size();
+        while(j<s.size())
+        {
+            
+          if(m.find(s[j])!=m.end()){
+            m[s[j]]--;
+            if(m[s[j]]==0)   // if we are in the window all letter are in map                                     //and same quantity aditya verma
+              count--;
+                 }
+             if(j-i+1<k)
+                j++;
+            
+            else if(j-i+1==k)
+           {
+              if(count==0)
+                    res.push_back(i);
+                 if(m.find(s[i])!=m.end()){
+                     m[s[i]]++;
+               if(m[s[i]]==1)
+                     count++;
+                }
+                i++,j++;
+            }
+
+        }
+        return res;
+    }
